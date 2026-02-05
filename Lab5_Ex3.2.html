@@ -4,91 +4,248 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Information</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
+        :root {
+            --bg-primary: #f5f5f5;
+            --text-primary: #333;
+            --card-bg: white;
+            --card-text: #333;
+            --border-color: #ddd;
         }
+
+        body.dark-mode {
+            --bg-primary: #1a1a1a;
+            --text-primary: #e0e0e0;
+            --card-bg: #2d2d2d;
+            --card-text: #e0e0e0;
+            --border-color: #444;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+        }
+
+        .navbar-custom {
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-custom .navbar-brand {
+            font-weight: 600;
+            color: var(--text-primary) !important;
+        }
+
         .header {
             text-align: center;
             margin-bottom: 40px;
-            border-bottom: 2px solid #333;
             padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
         }
+
         .header h1 {
             margin: 10px 0;
+            font-weight: 700;
+            color: var(--text-primary);
         }
+
+        .header p {
+            margin: 5px 0;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
         .products {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 24px;
         }
+
         .product {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background-color: var(--card-bg);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+
         .product h2 {
             margin-top: 0;
-            color: #333;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 1.5rem;
         }
+
+        .product p {
+            color: var(--text-primary);
+            margin-bottom: 15px;
+        }
+
         .product img {
             width: 100%;
             height: auto;
-            border-radius: 4px;
+            border-radius: 8px;
+            margin-bottom: 15px;
         }
+
         .product iframe {
             width: 100%;
             height: 300px;
-            border-radius: 4px;
-            border: none;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
         }
-        .product a {
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .btn-download {
             display: inline-block;
             margin-top: 10px;
-            padding: 10px 15px;
-            background-color: #007bff;
+            padding: 10px 20px;
+            background-color: #28a745;
             color: white;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
         }
-        .product a:hover {
-            background-color: #0056b3;
+
+        .btn-download:hover {
+            background-color: #218838;
+            text-decoration: none;
+            color: white;
+        }
+
+        .theme-toggle {
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            color: #007bff;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Personal Information</h1>
-        <p>Nguyen Ngoc Tuan Anh- normal student</p>
+    <!-- Navigation Bar with Theme Toggle -->
+    <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i class="bi bi-person-circle"></i> Personal</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">
+                            <i class="bi bi-moon-fill"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <div class="header">
+            <h1><i class="bi bi-person"></i> Personal Information</h1>
+            <p class="lead">Nguyen Ngoc Tuan Anh - B2505039</p>
+        </div>
+
+        <div class="products">
+            <!-- Product 1: PNG Image -->
+            <div class="product">
+                <h2><i class="bi bi-image"></i> Product 1: Lab05_Ex2.1</h2>
+                <p>Tạo infographic bằng Canva AI</p>
+                <img src="./Lab05_Ex2.1.png" alt="Product Image" class="img-fluid">
+                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#imageModal1">
+                    <i class="bi bi-eye"></i> View Details
+                </button>
+            </div>
+
+            <!-- Product 2: PDF File -->
+            <div class="product">
+                <h2><i class="bi bi-file-pdf"></i> Product 2: Lab05_Ex1.2</h2>
+                <p>Hợp tác nhóm trên Google Docs</p>
+                <a href="./Lab05_Ex1.2.pdf" download class="btn-download">
+                    <i class="bi bi-download"></i> Download PDF
+                </a>
+                <p><small class="text-muted"><em>Update the href above with your PDF file name</em></small></p>
+            </div>
+
+            <!-- Product 3: YouTube Video -->
+            <div class="product">
+                <h2><i class="bi bi-play-circle"></i> Product 3: Lab05_Ex3.1</h2>
+                <p>Tạo mã nguồn HTML hiển thị nội dung số</p>
+                <iframe src="https://www.youtube.com/embed/UPy2wUm2e64?si=RFmVEE3IysZiR3-H" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-5 py-4 border-top" style="border-color: var(--border-color);">
+            <p class="mb-0">&copy; 2026 Tuan Anh. All rights reserved.</p>
+        </footer>
     </div>
 
-    <div class="products">
-        <!-- Product 1: PNG Image -->
-        <div class="product">
-            <h2>Product 1: Lab05_Ex2.1</h2>
-            <p>Tạo infographic bằng Canva AI</p>
-            <img src="./Lab05_Ex2.1.png" alt="Product Image">
-        </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Night Mode Toggle Script -->
+    <script>
+        // Initialize theme from localStorage
+        const htmlElement = document.documentElement;
+        const themeToggle = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme') || 'light';
 
-        <!-- Product 2: PDF File -->
-        <div class="product">
-            <h2>Product 2: Lab05_Ex1.2</h2>
-            <p>Hợp tác nhóm trên Google Docs</p>
-            <a href="./Lab05_Ex1.2.pdf" download>Download PDF</a>
-            <p><em>Update the href above with your PDF file name</em></p>
-        </div>
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="bi bi-sun-fill"></i>';
+        }
 
-        <!-- Product 3: YouTube Video -->
-        <div class="product">
-            <h2>Product 3: Lab05_Ex3.1</h2>
-            <p>Tạo mã nguồn HTML hiển thị nội dung số</p>
-            <iframe src="https://youtube.com/embed/CS7nc4kTqv8?feature=share" frameborder="0" allowfullscreen></iframe>
-        </div>
-    </div>
+        // Theme toggle event listener
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            
+            // Update icon
+            themeToggle.innerHTML = isDarkMode 
+                ? '<i class="bi bi-sun-fill"></i>' 
+                : '<i class="bi bi-moon-fill"></i>';
+            
+            // Save preference
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        });
+
+        // Detect system preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('theme')) {
+            document.body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="bi bi-sun-fill"></i>';
+        }
+    </script>
 </body>
 </html>
